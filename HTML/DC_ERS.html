@@ -16,12 +16,29 @@
     <body>
 Hello World
         <form action="" method="POST" id="employee">
+            <select name="position" id="posit">
+
+                <option value="non-manager">non-manager</option>
+                <option value="manager">manager</option>
+
+            </select>
+
+                                 <br>
+
             <label name="username" >Username: </label>
-            <input type="text" name="ur">
-            <br>
+            <input type="text" name="username" id="ur" value="">
+
+                                 <br>
+
             <label name="password" >Password: </label>
-            <input type="password" name="pass">
-            <br>
+            <input type="password" name="password" id="pass" value="">
+         
+                                 <br>
+
+            <button type="button" onclick="myFun()">see values</button>
+
+                                 <br>
+
             <input type="submit" value="Submit" />
             
   
