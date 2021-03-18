@@ -1,5 +1,5 @@
 package com.revature.DAO;
 
-public class ManagerDAOUtil {
+public class ManagerDAOImpl {
 
 }
