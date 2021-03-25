@@ -1,14 +1,14 @@
 package com.revature.model;
 
 public class Manager {
-	
+
 	private int id;
 	private String position;
 	private String username;
 	private String password;
 	private String firstName;
 	private String lastName;
-	
+
 	public Manager() {
 		super();
 	}
@@ -128,6 +128,5 @@ public class Manager {
 		return "Manager [id=" + id + ", position=" + position + ", username=" + username + ", password=" + password
 				+ ", firstName=" + firstName + ", lastName=" + lastName + "]";
 	}
-	
 
 }

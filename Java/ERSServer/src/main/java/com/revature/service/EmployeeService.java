@@ -11,12 +11,13 @@ import com.revature.utilities.ConnectionUtil;
 
 public class EmployeeService {
 	EmployeeDAO employeeDAO;
-	
+
 	public EmployeeService() {
-		this.employeeDAO = new EmployeeDAOImpl();	
+		this.employeeDAO = new EmployeeDAOImpl();
 	}
-	
-	public Employee getLogin(String postion, String username, String password) throws UserNotFoundException, SQLException{
+
+	public Employee getLogin(String postion, String username, String password)
+			throws UserNotFoundException, SQLException {
 		try (Connection con = ConnectionUtil.getConnection()) {
 			Employee user;
 
@@ -31,7 +32,4 @@ public class EmployeeService {
 		}
 	}
 
-	
-	
-	
 }

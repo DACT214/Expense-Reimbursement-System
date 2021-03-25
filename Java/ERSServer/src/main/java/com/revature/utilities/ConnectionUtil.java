@@ -13,8 +13,9 @@ public class ConnectionUtil {
 	}
 
 	public static Connection getConnection() throws SQLException {
-		Driver postgresDriver = new Driver();
-
+		
+		Driver postgresDriver= new Driver();
+		
 		DriverManager.registerDriver(postgresDriver);
 
 		String url = System.getenv("db_url");
@@ -22,7 +23,7 @@ public class ConnectionUtil {
 		String password = System.getenv("db_password");
 
 		Connection con = DriverManager.getConnection(url, username, password);
-		
+
 		return con;
 	}
 }

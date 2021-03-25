@@ -7,7 +7,7 @@ public class Employee {
 	private String password;
 	private String firstName;
 	private String lastName;
-	
+
 	public Employee() {
 		super();
 	}
@@ -127,6 +127,5 @@ public class Employee {
 		return "Employee [id=" + id + ", position=" + position + ", username=" + username + ", firstName=" + firstName
 				+ ", lastName=" + lastName + "]";
 	}
-	
-	
+
 }

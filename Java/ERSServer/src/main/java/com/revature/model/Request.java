@@ -7,7 +7,7 @@ public class Request {
 	private String lastName;
 	private double amount;
 	private String status;
-	
+
 	public Request() {
 		super();
 	}
@@ -126,5 +126,5 @@ public class Request {
 		return "Request [id=" + id + ", username=" + username + ", firstName=" + firstName + ", lastName=" + lastName
 				+ ", amount=" + amount + ", status=" + status + "]";
 	}
-	
+
 }
