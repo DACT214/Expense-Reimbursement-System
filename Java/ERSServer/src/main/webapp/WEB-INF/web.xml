@@ -6,32 +6,42 @@
   </welcome-file-list>
   <servlet>
     <description></description>
-    <display-name>servletOne</display-name>
-    <servlet-name>servletOne</servlet-name>
-    <servlet-class>com.revature.servlets.servletOne</servlet-class>
+    <display-name>loginServlet</display-name>
+    <servlet-name>loginServlet</servlet-name>
+    <servlet-class>com.revature.servlets.loginServlet</servlet-class>
   </servlet>
   <servlet-mapping>
-    <servlet-name>servletOne</servlet-name>
-    <url-pattern>/test</url-pattern>
+    <servlet-name>loginServlet</servlet-name>
+    <url-pattern>/login</url-pattern>
   </servlet-mapping>
   <servlet>
     <description></description>
-    <display-name>servletTwo</display-name>
-    <servlet-name>servletTwo</servlet-name>
-    <servlet-class>com.revature.servlets.servletTwo</servlet-class>
+    <display-name>logoutServlet</display-name>
+    <servlet-name>logoutServlet</servlet-name>
+    <servlet-class>com.revature.servlets.logoutServlet</servlet-class>
   </servlet>
   <servlet-mapping>
-    <servlet-name>servletTwo</servlet-name>
-    <url-pattern>/test2</url-pattern>
+    <servlet-name>logoutServlet</servlet-name>
+    <url-pattern>/logout</url-pattern>
   </servlet-mapping>
   <servlet>
     <description></description>
-    <display-name>Welcome</display-name>
-    <servlet-name>Welcome</servlet-name>
-    <servlet-class>com.revature.servlets.Welcome</servlet-class>
+    <display-name>addDataServlet</display-name>
+    <servlet-name>addDataServlet</servlet-name>
+    <servlet-class>com.revature.servlets.addDataServlet</servlet-class>
   </servlet>
   <servlet-mapping>
-    <servlet-name>Welcome</servlet-name>
-    <url-pattern>/welcome</url-pattern>
+    <servlet-name>addDataServlet</servlet-name>
+    <url-pattern>/addData</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>Profile</display-name>
+    <servlet-name>Profile</servlet-name>
+    <servlet-class>com.revature.servlets.Profile</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>Profile</servlet-name>
+    <url-pattern>/profile</url-pattern>
   </servlet-mapping>
 </web-app>

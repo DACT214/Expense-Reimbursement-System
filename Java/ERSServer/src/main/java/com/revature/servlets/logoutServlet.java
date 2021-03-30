@@ -9,17 +9,18 @@ import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 /**
  * Servlet implementation class servletTwo
  */
-public class servletTwo extends HttpServlet {
+public class logoutServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public servletTwo() {
+    public logoutServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -29,24 +30,19 @@ public class servletTwo extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
+		
 		response.setContentType("text/html");
 		PrintWriter out = response.getWriter();
-		Cookie [] cookies = request.getCookies();
+		HttpSession session=request.getSession();
 		
-		for (int i=0; i<cookies.length; i++) {
-			out.print("<p>first cookie value: " + cookies[i].getValue()+"</p>");
-		}
+		session.removeAttribute("name");
+		session.invalidate();
+	
+			
 		
-		if(cookies[1].getValue().equals("tue")){  
-	        RequestDispatcher rd=request.getRequestDispatcher("welcome");  
-	        rd.forward(request, response);  
-	    }  
-	    else{  
-	        out.print("Sorry UserName or Password Error!");  
-	        RequestDispatcher rd=request.getRequestDispatcher("/index.html");  
-	        rd.include(request, response);  
-	                      
-	        } 
+		
+		RequestDispatcher rd=request.getRequestDispatcher("/index.html");  
+        rd.include(request, response);
 		
 	}
 

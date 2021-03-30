@@ -51,7 +51,7 @@ VALUES (
 
 -- request table ============================================
 
-DROP TABLE IF EXISTS requests;
+DROP TABLE IF EXISTS ers_db.requests;
 CREATE TABLE requests (
 request_id 			SERIAL PRIMARY KEY,
 username 			varchar (20) NOT NULL,
@@ -69,8 +69,21 @@ INSERT
 	last_name,
 	request_ammount)
 	VALUES(
-	'JS123',
-	'John',
-	'Smith',
-	'100'
+	'MC456',
+	'Mark',
+	'Curry',
+	'500'
 	)
+	
+--	SELECT * FROM ers_db.requests WHERE username='MC456';
+INSERT INTO ers_db.requests(
+				username,
+				first_name,
+				last_name,
+				request_ammount)
+				VALUES(
+				'MC456',
+				(SELECT first_name FROM ers_db.accounts WHERE username='MC456'),
+				(SELECT last_name FROM ers_db.accounts WHERE username='MC456'),
+				'500'
+				);

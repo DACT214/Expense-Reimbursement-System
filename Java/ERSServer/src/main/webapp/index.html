@@ -1,11 +1,24 @@
 <html>
 <head>
-    <link ref="stylesheet" href="CSS/testcss.css"/>
+    <link rel="stylesheet" href="CSS/testcss.css"> 
+    
 </head>
 <body>
-<h2>Hello World!</h2>
-<a href="test">hello</a>
-<br>
-<a href="testPage.html">new form</a>
+<h3>Login</h3>
+<form action="login" method="POST">
+    <ul style="list-style-type: none;">
+
+        <li><input type="radio" id="employee" name="empType" value="employee">
+            <label for="employee">non-manager</label><br>
+            <input type="radio" id="manager" name="empType" value="manager">
+            <label for="manager">manager</label><br></li>
+
+        <li><input type="text" name="username"></li>
+
+        <li><input type="password" name="password"></li>
+        
+        <li><input type="submit" value="login"></li>    
+    </ul>
+</form>
 </body>
 </html>

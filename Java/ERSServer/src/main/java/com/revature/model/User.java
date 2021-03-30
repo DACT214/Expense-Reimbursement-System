@@ -1,7 +1,6 @@
 package com.revature.model;
 
-public class Manager {
-
+public class User {
 	private int id;
 	private String position;
 	private String username;
@@ -9,11 +8,11 @@ public class Manager {
 	private String firstName;
 	private String lastName;
 
-	public Manager() {
+	public User() {
 		super();
 	}
 
-	public Manager(int id, String position, String username, String password, String firstName, String lastName) {
+	public User(int id, String position, String username, String password, String firstName, String lastName) {
 		super();
 		this.id = id;
 		this.position = position;
@@ -92,7 +91,7 @@ public class Manager {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		Manager other = (Manager) obj;
+		User other = (User) obj;
 		if (firstName == null) {
 			if (other.firstName != null)
 				return false;
@@ -125,8 +124,8 @@ public class Manager {
 
 	@Override
 	public String toString() {
-		return "Manager [id=" + id + ", position=" + position + ", username=" + username + ", password=" + password
-				+ ", firstName=" + firstName + ", lastName=" + lastName + "]";
+		return "Employee [id=" + id + ", position=" + position + ", username=" + username + ", firstName=" + firstName
+				+ ", lastName=" + lastName + "]";
 	}
 
 }
