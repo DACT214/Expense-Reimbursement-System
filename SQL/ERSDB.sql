@@ -69,9 +69,9 @@ INSERT
 	last_name,
 	request_ammount)
 	VALUES(
-	'MC456',
-	'Mark',
-	'Curry',
+	'JB098',
+	'Jane',
+	'Baker',
 	'500'
 	)
 	
@@ -82,8 +82,13 @@ INSERT INTO ers_db.requests(
 				last_name,
 				request_ammount)
 				VALUES(
-				'MC456',
-				(SELECT first_name FROM ers_db.accounts WHERE username='MC456'),
-				(SELECT last_name FROM ers_db.accounts WHERE username='MC456'),
-				'500'
+				'JB098',
+				(SELECT first_name FROM ers_db.accounts WHERE username='JB098'),
+				(SELECT last_name FROM ers_db.accounts WHERE username='JB098'),
+				'321'
 				);
+			
+			
+UPDATE ers_db.requests SET status = 'accepted' WHERE request_id = '1';
+
+DELETE FROM ers_db.requests WHERE request_id = '8';

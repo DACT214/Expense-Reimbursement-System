@@ -2,10 +2,12 @@ package com.revature.service;
 
 import java.sql.Connection;
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 import com.revature.DAO.UserDAO;
 import com.revature.DAO.UserDAOImpl;
 import com.revature.exceptions.UserNotFoundException;
+import com.revature.model.Request;
 import com.revature.model.User;
 import com.revature.utilities.ConnectionUtil;
 
@@ -44,5 +46,20 @@ public class UserService {
 			return user;
 		}
 		
+	}
+	
+	public ArrayList<Request> getAllReq(String username, String statusIn) throws SQLException {
+		try (Connection con = ConnectionUtil.getConnection()){
+			ArrayList<Request> request;
+			
+			request = userDAO.getAllReq(username, statusIn, con);
+			
+			if (request == null) {
+				System.out.println("request were not found");
+
+			}
+			
+			return request;
+		}
 	}
 }

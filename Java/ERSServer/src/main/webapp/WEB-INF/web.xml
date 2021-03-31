@@ -36,12 +36,62 @@
   </servlet-mapping>
   <servlet>
     <description></description>
-    <display-name>Profile</display-name>
-    <servlet-name>Profile</servlet-name>
-    <servlet-class>com.revature.servlets.Profile</servlet-class>
+    <display-name>ProfileServlet</display-name>
+    <servlet-name>ProfileServlet</servlet-name>
+    <servlet-class>com.revature.servlets.ProfileServlet</servlet-class>
   </servlet>
   <servlet-mapping>
-    <servlet-name>Profile</servlet-name>
+    <servlet-name>ProfileServlet</servlet-name>
     <url-pattern>/profile</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>ManagerViewServlet</display-name>
+    <servlet-name>ManagerViewServlet</servlet-name>
+    <servlet-class>com.revature.servlets.ManagerViewServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>ManagerViewServlet</servlet-name>
+    <url-pattern>/managerView</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>UserViewServlet</display-name>
+    <servlet-name>UserViewServlet</servlet-name>
+    <servlet-class>com.revature.servlets.UserViewServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>UserViewServlet</servlet-name>
+    <url-pattern>/userView</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>SearchServlet</display-name>
+    <servlet-name>SearchServlet</servlet-name>
+    <servlet-class>com.revature.servlets.SearchServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>SearchServlet</servlet-name>
+    <url-pattern>/search</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>ResolveReqServlet</display-name>
+    <servlet-name>ResolveReqServlet</servlet-name>
+    <servlet-class>com.revature.servlets.ResolveReqServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>ResolveReqServlet</servlet-name>
+    <url-pattern>/resolve</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>UpdateServlet</display-name>
+    <servlet-name>UpdateServlet</servlet-name>
+    <servlet-class>com.revature.servlets.UpdateServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>UpdateServlet</servlet-name>
+    <url-pattern>/update</url-pattern>
   </servlet-mapping>
 </web-app>

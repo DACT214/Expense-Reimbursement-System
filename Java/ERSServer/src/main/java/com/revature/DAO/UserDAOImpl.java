@@ -4,7 +4,9 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 
+import com.revature.model.Request;
 import com.revature.model.User;
 
 public class UserDAOImpl implements UserDAO {
@@ -63,5 +65,48 @@ public class UserDAOImpl implements UserDAO {
 
 		return user;
 		
+	}
+	
+	@Override
+	public ArrayList<Request> getAllReq(String username, String statusIn, Connection con) throws SQLException {
+		String sql =null;
+		PreparedStatement ptsmt;
+		switch(statusIn) {
+		case "pending":
+		 sql = "SELECT * FROM ers_db.requests WHERE username=? AND status = ?";
+		 ptsmt = con.prepareStatement(sql);
+		 ptsmt.setString(1, username);
+		 ptsmt.setString(2, statusIn);
+		 break;
+		case "accepted":
+			sql = "SELECT * FROM ers_db.requests WHERE username=? AND status = ?";
+			 ptsmt = con.prepareStatement(sql);
+			 ptsmt.setString(1, username);
+			 ptsmt.setString(2, statusIn);
+			 break;
+		default:
+			sql = "SELECT * FROM ers_db.requests WHERE username=?";
+			ptsmt = con.prepareStatement(sql);
+			ptsmt.setString(1, username);
+			break;
+		}
+		
+		
+		ResultSet rs = ptsmt.executeQuery();
+		ArrayList<Request> req = new ArrayList<Request>();
+		Request reqItem=null;
+		
+		while(rs.next()) {
+			int id = rs.getInt("request_id");
+//			String username = rs.getString("username");
+			String fName= rs.getString("first_name");
+			String lName= rs.getString("last_name");
+			double ra= rs.getDouble("request_ammount");
+			String status= rs.getString("status");
+			
+			reqItem = new Request(id, username, fName, lName, ra, status);
+			req.add(reqItem);
+		}
+		return req;
 	}
 }

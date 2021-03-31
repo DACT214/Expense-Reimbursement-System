@@ -13,10 +13,11 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import com.revature.exceptions.UserNotFoundException;
-import com.revature.model.User;
 import com.revature.model.Request;
-import com.revature.service.UserService;
+import com.revature.model.User;
+import com.revature.service.ManagerService;
 import com.revature.service.RequestService;
+import com.revature.service.UserService;
 
 /**
  * Servlet implementation class servletOne
@@ -26,11 +27,12 @@ public class loginServlet extends HttpServlet {
 
 	UserService userService;
 	RequestService requestService;
-	
+	ManagerService managerService;
    
     public loginServlet() {
     	this.userService = new UserService();
     	this.requestService = new RequestService();
+    	this.managerService = new ManagerService();
     }
 
 	
@@ -51,26 +53,24 @@ public class loginServlet extends HttpServlet {
 		
 		
 		
-		String typ = request.getParameter("empType").toString();
-		String un = request.getParameter("username");
-		String pw = request.getParameter("password");
-		
-//		switch(typ) {
-//		case "employee":
-//				System.out.println("employee");
-//				break;
-//		case "manager":
-//				System.out.println("manager");
-//				break;
-//		default:
-//				System.out.println("end");
-//				break;
-//		}
+		String typ="";
+		String un=""; 
+		String pw=""; 
+	
 		
 		try {
+			if(session.getAttribute("name") != null) {
+				employee= (User) session.getAttribute("name");
+				typ = employee.getPosition();
+				un = employee.getUsername();
+			}else {
+				typ = request.getParameter("empType").toString();
+				 un = request.getParameter("username");
+				 pw = request.getParameter("password");
 				employee = userService.getLogin(typ, un, pw);
 				
 				session.setAttribute("name", employee);
+		}
 			
 			try { 
 				 empReq = requestService.getEmpReq(un);
@@ -91,53 +91,146 @@ public class loginServlet extends HttpServlet {
 		
 		if(employee != null) {
 			out.print("<!DOCTYPE html><html>");
-	        RequestDispatcher rd=request.getRequestDispatcher("/userPage.html");  
-	        rd.include(request, response);
-	     
+	     RequestDispatcher rd;
 	        
-	        out.print("<body>"
-	        		+ "    <h3>"
-	        		+ "        Welcome "+employee.getFirstName() +" "+ employee.getLastName()
-	        		+ "    </h3>"
-	        		+ "    <div>");
 	        		switch(typ) {
+	 //==== manager page=======
+	        		case "manager":
+	        			rd=request.getRequestDispatcher("/ManagerPage.html");  
+	        	        rd.include(request, response);
+					        			out.print("<body>"
+					        					+ "    <h3>"
+					        					+ "        Welcome "+employee.getFirstName() +" "+ employee.getLastName()
+					        					+ "    </h3>");
+					        					String status = "";
+					        					ArrayList<Request> reqs= null;
+					        					try {
+					        						reqs = managerService.getAllReq(status);
+					        					} catch (SQLException e) {
+					        						e.printStackTrace();
+					        					}
+					        					
+					        					
+					        					
+					        					out.print("<tr class=\"p-3 mb-2 bg-light text-dark\">"
+					        							+ "            <th style='border:1px solid black'>Request #</th>"
+					        							+ "            <th style='border:1px solid black'>Username</th>"
+					        							+ "            <th style='border:1px solid black'>Name</th>"
+					        							+ "            <th style='border:1px solid black'>Requested Amount</th>"
+					        							+ "            <th style='border:1px solid black'>Status</th>"
+					        							+ "</tr>");
+					        					
+					        					
+					        							for(Request req : reqs) {
+					        								String style = "";
+					        								
+					        								switch(req.getStatus()) {
+					        								case "pending":
+					        									style = "p-3 mb-2 bg-danger text-white";
+					        									break;
+					        								case "accepted":
+					        									style = "p-3 mb-2 bg-success text-white";
+					        									break;
+					        								default:
+					        									break;
+					        								}
+					        								
+					        					out.print("<tr class ='"+style+"'>"
+					        							+ "<td style='border:1px solid black'>"+req.getId()+"</td>"
+					        							+ "<td style='border:1px solid black'>"+req.getUsername()+"</td>"
+					        							+ "<td style='border:1px solid black'> "+req.getFirstName()+" "+req.getLastName()+"</td>"
+					        							+ "<td style='border:1px solid black'> $"+req.getAmount()+"</td>"
+					        							+ "<td style='border:1px solid black'>"+req.getStatus()+"</td>"
+					        							+ "<tr>");
+					        							}
+					        					out.print("</Table>"
+					        							+ "    "
+					        							+ "    <button type=\"button\" onclick=\"getData()\" name=status >get All Requests</button>"
+					        							+ "    <button type=\"button\" onclick=\"getPending()\" name=status value=\"pending\">get Pending Request</button>"
+					        							+ "	   <button type=\"button\" onclick=\"getAccepted()\" name=status value=\"accepted\">get Accepted Request</button>"
+					        							+"<br>"
+					        							+ "				<label for=\"first\">First name:</label>"
+					        							+ "<br>"
+										        		+ "				<input type=text name=first id=\"first\" value=''>"
+										        		+ "<br>"
+										        		+ "				<label for=\"last\">Last name:</label>"
+					        							+ "<br>"
+										        		+ "				<input type=text name=last id=\"last\" value=''>"
+										        		+ "<br>"
+										        		+ "				<button type=button onclick='getSerched()'>search</button>"
+										        		+ "<br>"
+										        		+ "				<label for=reqNum>Request Number ID:</label>"
+					        							+ "<br>"
+										        		+ "				<input type=number step=0 min=0 name=reqNum id='reqID' >"
+										        		+ "<br>"
+										        		+ "				<button type=button onclick='accpetReq()'>Accept</button> <button type=button onclick='denyReq()'>Deny</button>"
+					        							+ "    <script src=\"test.js\"></script>"
+					        							+ "</div>");		
+	        			break;    	
+	        			
+	        			
+	        			
+	        			
+	        			
+	        			
+	        			
+	        			
+	 //======================================================================================================================       			
+	 //==== employee page====================================================================================================
 	        		case "employee":
-								       out.print( "			<table>"
-								        		+ "				<tr> "
+	        			rd=request.getRequestDispatcher("/userPage.html");  
+	        			rd.include(request, response);
+					        			out.print("<body>"
+					        					+ "    <h3>"
+					        					+ "        Welcome "+employee.getFirstName() +" "+ employee.getLastName()
+					        					+ "    </h3>"
+					        					+ "    <div>"
+								       			+ "			<table id=\"data\">"
+								        		+ "				<tr class=\"p-3 mb-2 bg-light text-dark\"> "
 								        		+ "					<th style='border:1px solid black';>Request #</th>"
 								        		+ "					<th style='border:1px solid black';>Reimbursement amount</th>"
 							    				+ "					<th style='border:1px solid black';>Status</th>"
 								        		+ "				</tr>");
-								        for (int x= 0; x< empReq.size(); x++) {
-								        	out.print(""
-							        			+ "				<tr> "
-								        		+ "					<td style='border:1px solid black';> #"+ empReq.get(x).getId() +"</td>"
-								        		+ "					<td style='border:1px solid black';>$"+ empReq.get(x).getAmount() +"</td>"
-							    				+ "					<td style='border:1px solid black';>"+ empReq.get(x).getStatus() +"</td>"
-							    				+ "				</tr>");
-								        }
+	        							for(int x= 0; x< empReq.size(); x++) {
+	        								String style = "";
+	        								
+	        								switch(empReq.get(x).getStatus()) {
+	        								case "pending":
+	        									style = "p-3 mb-2 bg-danger text-white";
+	        									break;
+	        								case "accepted":
+	        									style = "p-3 mb-2 bg-success text-white";
+	        									break;
+	        								default:
+	        									break;
+	        								}
+	        								
+	        					out.print("<tr class ='"+style+"'>"
+						        		+ "					<td style='border:1px solid black';> #"+ empReq.get(x).getId() +"</td>"
+						        		+ "					<td style='border:1px solid black';>$"+ empReq.get(x).getAmount() +"</td>"
+					    				+ "					<td style='border:1px solid black';>"+ empReq.get(x).getStatus() +"</td>"
+	        							+ "<tr>");
+	        							}
 								        out.print(""
 								        		+ "			</table>"
 								        		+ "			<form action=addData  method=post>"
 								        		+ "				<input type=number step=0.01 min=0 name=ammount>"
 								        		+ "<br>"
 								        		+ "				<input type=submit value='New Request'>"
-								        		+ "			</form>");
+								        		+ "			</form>"
+			        							+ "    <button type=\"button\" onclick=\"getData()\" name=status >get All Requests</button>"
+			        							+ "    <button type=\"button\" onclick=\"getPending()\" name=status value=\"pending\">get Pending Request</button>"
+			        							+ "	   <button type=\"button\" onclick=\"getAccepted()\" name=status value=\"accepted\">get Accepted Request</button>"
+			        							+ "    <script src=\"userRequest.js\"></script>");
 	        		break;
-	        		case "manager":
-				       out.print(""
-				       			+ "			hi from manager"
-				    		   
-				    		   +""); 			
-				    break;    		
 	        		}
-				       out.print( "    </div>"
-				        		+ "</body>"
-				        		+ "</html>");
+								       out.print( "    </div>"
+								        		+ "</body>"
+								        		+ "</html>");
 	        
 		}else {
 			RequestDispatcher rd=request.getRequestDispatcher("/index.html");  
-	        rd.include(request, response); 
+			
 	        out.print("Sorry Username or Password were not found");
 				System.out.println("can't print");
 				}

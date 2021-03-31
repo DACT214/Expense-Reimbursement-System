@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import com.revature.DAO.RequestDAO;
 import com.revature.DAO.RequestDAOUtil;
 import com.revature.model.Request;
+import com.revature.model.User;
 import com.revature.utilities.ConnectionUtil;
 
 public class RequestService {
@@ -37,4 +38,12 @@ public class RequestService {
 		}
 	}
 	
+	
+	public User updatePro(int ID, String username, String firstName, String lastName) throws SQLException{
+		try(Connection con = ConnectionUtil.getConnection()){
+			User employee = requestDAO.updatePro(ID, username, firstName, lastName, con);
+			
+			return employee;
+		}
+	}
 }
