@@ -44,13 +44,22 @@ public class addDataServlet extends HttpServlet {
 		
 		
 		User employee= (User) session.getAttribute("name");
-		String username = employee.getUsername();
-		
-		
-		
-		double ammount = Double.parseDouble(request.getParameter("ammount"));
-		
 		RequestDispatcher rd;
+		String username = null;
+		double ammount = (Double) 0.00;
+		try { username = employee.getUsername();
+		
+		
+		
+		 ammount = Double.parseDouble(request.getParameter("ammount"));}
+		catch (NumberFormatException | NullPointerException e) {
+			e.fillInStackTrace();
+			rd = request.getRequestDispatcher("/login");
+	        rd.include(request, response);
+			rd.forward(request, response);
+		}
+		
+		
 		try {
 			requestService.newEmpReq(username, ammount);
 	        

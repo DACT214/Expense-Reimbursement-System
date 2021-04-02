@@ -92,3 +92,4 @@ INSERT INTO ers_db.requests(
 UPDATE ers_db.requests SET status = 'accepted' WHERE request_id = '1';
 
 DELETE FROM ers_db.requests WHERE request_id = '8';
+

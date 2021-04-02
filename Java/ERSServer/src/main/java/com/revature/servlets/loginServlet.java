@@ -65,8 +65,11 @@ public class loginServlet extends HttpServlet {
 				un = employee.getUsername();
 			}else {
 				typ = request.getParameter("empType").toString();
+				
 				 un = request.getParameter("username");
+				
 				 pw = request.getParameter("password");
+				
 				employee = userService.getLogin(typ, un, pw);
 				
 				session.setAttribute("name", employee);
@@ -78,14 +81,15 @@ public class loginServlet extends HttpServlet {
 			
 			}catch(SQLException | NullPointerException e) {
 				e.fillInStackTrace();
+				
+			        out.print("Sorry Username or Password were not found");
 			}
 			
 			
 		} catch(SQLException | NullPointerException | UserNotFoundException e) {
 			 
-		        RequestDispatcher rd=request.getRequestDispatcher("/index.html");  
-		        rd.include(request, response);  
-			
+		        e.fillInStackTrace();
+		       
 		}
 				
 		
@@ -107,6 +111,7 @@ public class loginServlet extends HttpServlet {
 					        					try {
 					        						reqs = managerService.getAllReq(status);
 					        					} catch (SQLException e) {
+					        						
 					        						e.printStackTrace();
 					        					}
 					        					
@@ -144,26 +149,18 @@ public class loginServlet extends HttpServlet {
 					        							+ "<tr>");
 					        							}
 					        					out.print("</Table>"
-					        							+ "    "
-					        							+ "    <button type=\"button\" onclick=\"getData()\" name=status >get All Requests</button>"
-					        							+ "    <button type=\"button\" onclick=\"getPending()\" name=status value=\"pending\">get Pending Request</button>"
-					        							+ "	   <button type=\"button\" onclick=\"getAccepted()\" name=status value=\"accepted\">get Accepted Request</button>"
-					        							+"<br>"
-					        							+ "				<label for=\"first\">First name:</label>"
-					        							+ "<br>"
-										        		+ "				<input type=text name=first id=\"first\" value=''>"
-										        		+ "<br>"
-										        		+ "				<label for=\"last\">Last name:</label>"
-					        							+ "<br>"
-										        		+ "				<input type=text name=last id=\"last\" value=''>"
-										        		+ "<br>"
-										        		+ "				<button type=button onclick='getSerched()'>search</button>"
-										        		+ "<br>"
-										        		+ "				<label for=reqNum>Request Number ID:</label>"
-					        							+ "<br>"
-										        		+ "				<input type=number step=0 min=0 name=reqNum id='reqID' >"
-										        		+ "<br>"
-										        		+ "				<button type=button onclick='accpetReq()'>Accept</button> <button type=button onclick='denyReq()'>Deny</button>"
+					        							+ "<br> "
+					        							+ "    <button type=\"button\" onclick=\"getData()\" name=status class=\"btn btn-outline-primary\">get All Requests</button>"
+					        							+ "    <button type=\"button\" onclick=\"getPending()\" name=status value=\"pending\" class=\"btn btn-outline-primary\">get Pending Request</button>"
+					        							+ "	   <button type=\"button\" onclick=\"getAccepted()\" name=status value=\"accepted\" class='btn btn-outline-primary'>get Accepted Request</button>"
+					        							+ "<br><br>"
+										        		+ "				<input type=text name=first id=\"first\" value='' class=\"form-control\" style=\"width: 200px; display:inline;\" placeholder='First Name'>"
+										        		+ "				<input type=text name=last id=\"last\" value='' class='form-control' style='width: 200px; display:inline;' placeholder='Last Name'>"
+										        		+ "				<button type=button onclick='getSerched()' class='btn btn-outline-success'>search</button>"
+										        		+ "<br><br>"
+										        		+ "				<label for=reqNum>Resolve a Request:</label>"
+										        		+ "				<input type=number step=0 min=0 name=reqNum id='reqID' class='form-control' style='width: 200px; display:inline;' placeholder='Request ID Number'>"
+										        		+ "				<button type=button onclick='accpetReq()' class='btn btn-outline-success'>Accept</button> <button type=button onclick='denyReq()' class='btn btn-outline-danger'>Deny</button>"
 					        							+ "    <script src=\"test.js\"></script>"
 					        							+ "</div>");		
 	        			break;    	
@@ -185,7 +182,7 @@ public class loginServlet extends HttpServlet {
 					        					+ "        Welcome "+employee.getFirstName() +" "+ employee.getLastName()
 					        					+ "    </h3>"
 					        					+ "    <div>"
-								       			+ "			<table id=\"data\">"
+								       			+ "			<table id=\"data\" class=\"table\" style='width:50%'>"
 								        		+ "				<tr class=\"p-3 mb-2 bg-light text-dark\"> "
 								        		+ "					<th style='border:1px solid black';>Request #</th>"
 								        		+ "					<th style='border:1px solid black';>Reimbursement amount</th>"
@@ -214,13 +211,13 @@ public class loginServlet extends HttpServlet {
 								        out.print(""
 								        		+ "			</table>"
 								        		+ "			<form action=addData  method=post>"
-								        		+ "				<input type=number step=0.01 min=0 name=ammount>"
-								        		+ "<br>"
-								        		+ "				<input type=submit value='New Request'>"
+								        		+ "				<input type=number step=0.01 min=0 name=ammount class=\"form-control\" style='display:inline; width: 200px;' placeholder='000.00'>"
+								        		+ "<input type=submit value='New Request' class='btn btn-outline-primary' style='display:inline;'>"
 								        		+ "			</form>"
-			        							+ "    <button type=\"button\" onclick=\"getData()\" name=status >get All Requests</button>"
-			        							+ "    <button type=\"button\" onclick=\"getPending()\" name=status value=\"pending\">get Pending Request</button>"
-			        							+ "	   <button type=\"button\" onclick=\"getAccepted()\" name=status value=\"accepted\">get Accepted Request</button>"
+								        		+ "<br>"
+			        							+ "    <button type=\"button\" onclick=\"getData()\" name=status class='btn btn-outline-primary'>get All Requests</button>"
+			        							+ "    <button type=\"button\" onclick=\"getPending()\" name=status value=\"pending\" class='btn btn-outline-primary'>get Pending Request</button>"
+			        							+ "	   <button type=\"button\" onclick=\"getAccepted()\" name=status value=\"accepted\" class='btn btn-outline-primary'>get Accepted Request</button>"
 			        							+ "    <script src=\"userRequest.js\"></script>");
 	        		break;
 	        		}
@@ -230,7 +227,7 @@ public class loginServlet extends HttpServlet {
 	        
 		}else {
 			RequestDispatcher rd=request.getRequestDispatcher("/index.html");  
-			
+			rd.include(request, response);
 	        out.print("Sorry Username or Password were not found");
 				System.out.println("can't print");
 				}

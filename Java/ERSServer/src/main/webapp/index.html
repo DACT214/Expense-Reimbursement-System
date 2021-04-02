@@ -1,23 +1,24 @@
 <html>
 <head>
-    <link rel="stylesheet" href="CSS/testcss.css"> 
     
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous"> 
+    <link rel="stylesheet" href="CSS/testcss.css"> 
 </head>
 <body>
 <h3>Login</h3>
-<form action="login" method="POST">
+<form action="login" method="POST" >
     <ul style="list-style-type: none;">
 
-        <li><input type="radio" id="employee" name="empType" value="employee">
-            <label for="employee">non-manager</label><br>
-            <input type="radio" id="manager" name="empType" value="manager">
+        <li><input type="radio" id="employee" name="empType" value="employee" >
+            <label for="employee">non-manager</label></li>
+         <li><input type="radio" id="manager" name="empType" value="manager">
             <label for="manager">manager</label><br></li>
 
-        <li><input type="text" name="username"></li>
+        <li class="form-row"><input type="text" name="username" class="form-control" style="width: 200px;" placeholder="Username"></li>
 
-        <li><input type="password" name="password"></li>
+        <li class="form-row"><input type="password" name="password" class="form-control" style="width: 200px;" placeholder="Password"></li>
         
-        <li><input type="submit" value="login"></li>    
+        <li><input class="btn btn-outline-primary" type="submit" value="login" style="margin-top: 10px;"></li>    
     </ul>
 </form>
 </body>
